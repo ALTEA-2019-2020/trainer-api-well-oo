@@ -3,7 +3,6 @@ package com.miage.altea.trainer_api.bo;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Entity
