@@ -39,6 +39,6 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public void deleteTrainer(String name) {
-        this.trainerRepository.delete(this.getTrainer(name));
+        this.trainerRepository.deleteById(name);
     }
 }
