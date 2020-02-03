@@ -2,6 +2,8 @@ package com.miage.altea.trainer_api.controller;
 
 import com.miage.altea.trainer_api.bo.Pokemon;
 import com.miage.altea.trainer_api.bo.Trainer;
+import com.miage.altea.trainer_api.repository.TrainerRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +11,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,6 +27,27 @@ public class TrainerControllerIntegrationTest {
 
     @Autowired
     private TrainerController controller;
+
+    @Autowired
+    private TrainerRepository trainerRepository;
+
+    @BeforeEach
+    void init() {
+        trainerRepository.deleteAll();
+
+        var ash = new Trainer("Ash");
+        var pikachu = new Pokemon(25, 18);
+        ash.setTeam(List.of(pikachu));
+
+        var misty = new Trainer("Misty");
+        var staryu = new Pokemon(120, 18);
+        var starmie = new Pokemon(121, 21);
+        misty.setTeam(List.of(staryu, starmie));
+
+        // save a couple of trainers
+        trainerRepository.save(ash);
+        trainerRepository.save(misty);
+    }
 
     @Test
     void trainerController_shouldBeInstanciated(){
